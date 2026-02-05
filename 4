@@ -1,0 +1,10 @@
+CLR A           ; A = 00H
+
+        ORL A, #01H     ; A = 01  (digit 0 → 0, digit 1 → 1)
+        ANL A, #0FH     ; mask lower nibble
+
+        ORL A, #20H     ; add digit 2 (0010 0000)
+        ORL A, #08H     ; add digit 8 (0000 1000)
+
+        ; Final value in A = 0128 (BCD style combination)
+        NOP

@@ -1,0 +1,31 @@
+MOV A, 50H      ; Load A = value at 50H
+        MOV R0, 51H     ; Load B = value at 51H
+
+CHECK:  JZ A_ZERO       ; If A == 0, jump
+        MOV A, R0
+        JZ B_ZERO       ; If B == 0, jump
+
+        MOV A, 50H
+        DEC A
+        MOV 50H, A     ; A--
+
+        MOV A, R0
+        DEC A
+        MOV R0, A      ; B--
+
+        SJMP CHECK
+
+A_ZERO:
+        MOV A, R0
+        JZ EQUAL        ; If B also zero → equal
+        MOV 52H, #0FFH ; A < B
+        SJMP END
+
+B_ZERO:
+        MOV 52H, #01H  ; A > B
+        SJMP END
+
+EQUAL:
+        MOV 52H, #00H  ; A = B
+
+END:    NOP
